@@ -1,0 +1,25 @@
+mutation createAccount(
+  $username: String!
+  $email: String!
+  $name: String!
+  $password: String!
+) {
+  createAccount(
+    username: $username
+    email: $email
+    name: $name
+    password: $password
+  ) {
+    ok
+    error
+    token
+  }
+}
+
+mutation login($username: String!, $password: String!) {
+  login(username: $username, password: $password) {
+    ok
+    error
+    token
+  }
+}
