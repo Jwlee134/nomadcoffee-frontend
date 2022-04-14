@@ -12,6 +12,7 @@ import {
   useCreateAccountMutation,
   useLoginMutation,
 } from "../graphql/generated";
+import { ErrorText } from "../styles/shared";
 
 const Form = styled.form``;
 
@@ -32,13 +33,6 @@ const ToggleButton = styled.button`
   font-weight: 500;
   font-size: 14px;
   cursor: pointer;
-`;
-
-const ErrorText = styled.span`
-  display: block;
-  color: #ffa4a4;
-  margin-bottom: 20px;
-  font-weight: 300;
 `;
 
 interface FormState {

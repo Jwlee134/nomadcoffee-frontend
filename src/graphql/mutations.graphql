@@ -23,3 +23,47 @@ mutation login($username: String!, $password: String!) {
     token
   }
 }
+
+mutation createCoffeeShop(
+  $name: String!
+  $latitude: String!
+  $longitude: String!
+  $photos: [Upload]!
+  $categories: [String]!
+) {
+  createCoffeeShop(
+    name: $name
+    latitude: $latitude
+    longitude: $longitude
+    photos: $photos
+    categories: $categories
+  ) {
+    ok
+    error
+  }
+}
+
+mutation editCoffeeShop(
+  $editCoffeeShopId: Int!
+  $name: String
+  $latitude: String
+  $longitude: String
+  $newPhotos: [Upload]
+  $photoIdsToDelete: [Int]
+  $categories: [String]
+  $deleteShop: Boolean
+) {
+  editCoffeeShop(
+    id: $editCoffeeShopId
+    name: $name
+    latitude: $latitude
+    longitude: $longitude
+    newPhotos: $newPhotos
+    photoIdsToDelete: $photoIdsToDelete
+    categories: $categories
+    deleteShop: $deleteShop
+  ) {
+    ok
+    error
+  }
+}

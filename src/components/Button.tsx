@@ -14,10 +14,11 @@ const SButton = styled.button`
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
+  loading?: boolean;
 }
 
-function Button({ text, ...rest }: Props) {
-  return <SButton {...rest}>{text}</SButton>;
+function Button({ text, loading, ...rest }: Props) {
+  return <SButton {...rest}>{loading ? "Loading" : text}</SButton>;
 }
 
 export default Button;

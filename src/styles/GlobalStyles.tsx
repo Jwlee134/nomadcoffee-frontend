@@ -1,4 +1,5 @@
 import { createGlobalStyle, css } from "styled-components";
+import Image from "../assets/bgImg.jpg";
 
 const styles = css`
   html,
@@ -131,6 +132,12 @@ const styles = css`
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: url(${Image}) no-repeat center center;
+    background-size: cover;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
   }
 `;
 

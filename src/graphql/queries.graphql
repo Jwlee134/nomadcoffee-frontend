@@ -1,0 +1,20 @@
+query seeCoffeeShops {
+  seeCoffeeShops {
+    id
+    name
+    latitude
+    longitude
+    photos {
+      id
+      url
+    }
+    user {
+      username
+      avatarUrl
+    }
+    categories {
+      id
+      name
+    }
+  }
+}

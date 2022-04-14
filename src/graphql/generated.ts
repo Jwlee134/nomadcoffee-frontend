@@ -74,12 +74,13 @@ export type MutationCreateCoffeeShopArgs = {
 
 export type MutationEditCoffeeShopArgs = {
   categories?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  deleteShop?: InputMaybe<Scalars['Boolean']>;
   id: Scalars['Int'];
   latitude?: InputMaybe<Scalars['String']>;
   longitude?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
-  newPhoto?: InputMaybe<Scalars['Upload']>;
-  photoIdToDelete?: InputMaybe<Scalars['Int']>;
+  newPhotos?: InputMaybe<Array<InputMaybe<Scalars['Upload']>>>;
+  photoIdsToDelete?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
 };
 
 
@@ -197,6 +198,36 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', login?: { __typename?: 'MutationResponse', ok: boolean, error?: string | null, token?: string | null } | null };
 
+export type CreateCoffeeShopMutationVariables = Exact<{
+  name: Scalars['String'];
+  latitude: Scalars['String'];
+  longitude: Scalars['String'];
+  photos: Array<InputMaybe<Scalars['Upload']>> | InputMaybe<Scalars['Upload']>;
+  categories: Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>;
+}>;
+
+
+export type CreateCoffeeShopMutation = { __typename?: 'Mutation', createCoffeeShop?: { __typename?: 'MutationResponse', ok: boolean, error?: string | null } | null };
+
+export type EditCoffeeShopMutationVariables = Exact<{
+  editCoffeeShopId: Scalars['Int'];
+  name?: InputMaybe<Scalars['String']>;
+  latitude?: InputMaybe<Scalars['String']>;
+  longitude?: InputMaybe<Scalars['String']>;
+  newPhotos?: InputMaybe<Array<InputMaybe<Scalars['Upload']>> | InputMaybe<Scalars['Upload']>>;
+  photoIdsToDelete?: InputMaybe<Array<InputMaybe<Scalars['Int']>> | InputMaybe<Scalars['Int']>>;
+  categories?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
+  deleteShop?: InputMaybe<Scalars['Boolean']>;
+}>;
+
+
+export type EditCoffeeShopMutation = { __typename?: 'Mutation', editCoffeeShop?: { __typename?: 'MutationResponse', ok: boolean, error?: string | null } | null };
+
+export type SeeCoffeeShopsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SeeCoffeeShopsQuery = { __typename?: 'Query', seeCoffeeShops?: Array<{ __typename?: 'CoffeeShop', id: number, name: string, latitude: string, longitude: string, photos?: Array<{ __typename?: 'CoffeeShopPhoto', id: number, url: string } | null> | null, user: { __typename?: 'User', username: string, avatarUrl?: string | null }, categories?: Array<{ __typename?: 'Category', id: number, name: string } | null> | null } | null> | null };
+
 
 export const CreateAccountDocument = gql`
     mutation createAccount($username: String!, $email: String!, $name: String!, $password: String!) {
@@ -277,3 +308,146 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const CreateCoffeeShopDocument = gql`
+    mutation createCoffeeShop($name: String!, $latitude: String!, $longitude: String!, $photos: [Upload]!, $categories: [String]!) {
+  createCoffeeShop(
+    name: $name
+    latitude: $latitude
+    longitude: $longitude
+    photos: $photos
+    categories: $categories
+  ) {
+    ok
+    error
+  }
+}
+    `;
+export type CreateCoffeeShopMutationFn = Apollo.MutationFunction<CreateCoffeeShopMutation, CreateCoffeeShopMutationVariables>;
+
+/**
+ * __useCreateCoffeeShopMutation__
+ *
+ * To run a mutation, you first call `useCreateCoffeeShopMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCoffeeShopMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createCoffeeShopMutation, { data, loading, error }] = useCreateCoffeeShopMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *      latitude: // value for 'latitude'
+ *      longitude: // value for 'longitude'
+ *      photos: // value for 'photos'
+ *      categories: // value for 'categories'
+ *   },
+ * });
+ */
+export function useCreateCoffeeShopMutation(baseOptions?: Apollo.MutationHookOptions<CreateCoffeeShopMutation, CreateCoffeeShopMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateCoffeeShopMutation, CreateCoffeeShopMutationVariables>(CreateCoffeeShopDocument, options);
+      }
+export type CreateCoffeeShopMutationHookResult = ReturnType<typeof useCreateCoffeeShopMutation>;
+export type CreateCoffeeShopMutationResult = Apollo.MutationResult<CreateCoffeeShopMutation>;
+export type CreateCoffeeShopMutationOptions = Apollo.BaseMutationOptions<CreateCoffeeShopMutation, CreateCoffeeShopMutationVariables>;
+export const EditCoffeeShopDocument = gql`
+    mutation editCoffeeShop($editCoffeeShopId: Int!, $name: String, $latitude: String, $longitude: String, $newPhotos: [Upload], $photoIdsToDelete: [Int], $categories: [String], $deleteShop: Boolean) {
+  editCoffeeShop(
+    id: $editCoffeeShopId
+    name: $name
+    latitude: $latitude
+    longitude: $longitude
+    newPhotos: $newPhotos
+    photoIdsToDelete: $photoIdsToDelete
+    categories: $categories
+    deleteShop: $deleteShop
+  ) {
+    ok
+    error
+  }
+}
+    `;
+export type EditCoffeeShopMutationFn = Apollo.MutationFunction<EditCoffeeShopMutation, EditCoffeeShopMutationVariables>;
+
+/**
+ * __useEditCoffeeShopMutation__
+ *
+ * To run a mutation, you first call `useEditCoffeeShopMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditCoffeeShopMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editCoffeeShopMutation, { data, loading, error }] = useEditCoffeeShopMutation({
+ *   variables: {
+ *      editCoffeeShopId: // value for 'editCoffeeShopId'
+ *      name: // value for 'name'
+ *      latitude: // value for 'latitude'
+ *      longitude: // value for 'longitude'
+ *      newPhotos: // value for 'newPhotos'
+ *      photoIdsToDelete: // value for 'photoIdsToDelete'
+ *      categories: // value for 'categories'
+ *      deleteShop: // value for 'deleteShop'
+ *   },
+ * });
+ */
+export function useEditCoffeeShopMutation(baseOptions?: Apollo.MutationHookOptions<EditCoffeeShopMutation, EditCoffeeShopMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditCoffeeShopMutation, EditCoffeeShopMutationVariables>(EditCoffeeShopDocument, options);
+      }
+export type EditCoffeeShopMutationHookResult = ReturnType<typeof useEditCoffeeShopMutation>;
+export type EditCoffeeShopMutationResult = Apollo.MutationResult<EditCoffeeShopMutation>;
+export type EditCoffeeShopMutationOptions = Apollo.BaseMutationOptions<EditCoffeeShopMutation, EditCoffeeShopMutationVariables>;
+export const SeeCoffeeShopsDocument = gql`
+    query seeCoffeeShops {
+  seeCoffeeShops {
+    id
+    name
+    latitude
+    longitude
+    photos {
+      id
+      url
+    }
+    user {
+      username
+      avatarUrl
+    }
+    categories {
+      id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useSeeCoffeeShopsQuery__
+ *
+ * To run a query within a React component, call `useSeeCoffeeShopsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSeeCoffeeShopsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSeeCoffeeShopsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSeeCoffeeShopsQuery(baseOptions?: Apollo.QueryHookOptions<SeeCoffeeShopsQuery, SeeCoffeeShopsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SeeCoffeeShopsQuery, SeeCoffeeShopsQueryVariables>(SeeCoffeeShopsDocument, options);
+      }
+export function useSeeCoffeeShopsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SeeCoffeeShopsQuery, SeeCoffeeShopsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SeeCoffeeShopsQuery, SeeCoffeeShopsQueryVariables>(SeeCoffeeShopsDocument, options);
+        }
+export type SeeCoffeeShopsQueryHookResult = ReturnType<typeof useSeeCoffeeShopsQuery>;
+export type SeeCoffeeShopsLazyQueryHookResult = ReturnType<typeof useSeeCoffeeShopsLazyQuery>;
+export type SeeCoffeeShopsQueryResult = Apollo.QueryResult<SeeCoffeeShopsQuery, SeeCoffeeShopsQueryVariables>;
