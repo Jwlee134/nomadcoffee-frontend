@@ -15,7 +15,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 });
 
 const authLink = setContext((_, { headers }) => ({
-  headers: { ...headers, token: localStorage.getItem(TOKEN) },
+  headers: { ...headers, token: localStorage.getItem(TOKEN) || "" },
 }));
 
 const uploadHttpLink = createUploadLink({
